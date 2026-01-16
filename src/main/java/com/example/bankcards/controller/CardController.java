@@ -10,6 +10,7 @@ import com.example.bankcards.dto.card.response.CardResponse;
 import com.example.bankcards.dto.transfer.request.TransferRequest;
 import com.example.bankcards.dto.transfer.response.TransferResponse;
 import com.example.bankcards.service.CardService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,23 +43,23 @@ public class CardController implements CardApi {
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/get")
     public ResponseEntity<CardResponse> getCardDetails(
-            @RequestBody CardPasswordRequest cardPasswordRequest
+            @Valid @RequestBody CardPasswordRequest cardPasswordRequest
     ){
         return ResponseEntity.status(HttpStatus.OK).body(cardService.getCard(cardPasswordRequest));
     }
 
     @PreAuthorize("hasRole('USER')")
-    @PostMapping("/block")
+    @PatchMapping("/block")
     public ResponseEntity<CardMaskedResponse> requestToBlockCard(
-            @RequestBody CardNumberRequest cardNumberRequest
+            @Valid @RequestBody CardNumberRequest cardNumberRequest
     ) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(cardService.requestToBlock(cardNumberRequest));
+        return ResponseEntity.status(HttpStatus.OK).body(cardService.requestToBlock(cardNumberRequest));
     }
 
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/transfer")
     public ResponseEntity<TransferResponse> transferBetweenOwnCards(
-            @RequestBody TransferRequest transferRequest
+            @Valid @RequestBody TransferRequest transferRequest
     ){
         return ResponseEntity.status(HttpStatus.OK).body(cardService.transferBetweenOwnCards(transferRequest));
     }
@@ -66,7 +67,7 @@ public class CardController implements CardApi {
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/activate")
     public ResponseEntity<CardMaskedResponse> activateCard(
-            @RequestBody CardNumberRequest cardNumberRequest
+           @Valid @RequestBody CardNumberRequest cardNumberRequest
     ){
         return ResponseEntity.status(HttpStatus.OK).body(cardService.activate(cardNumberRequest));
     }
@@ -74,7 +75,7 @@ public class CardController implements CardApi {
     @PreAuthorize("hasRole('ADMIN')")
     @PatchMapping("/block")
     public ResponseEntity<CardMaskedResponse> blockCard(
-            @RequestBody CardNumberRequest cardNumberRequest
+           @Valid @RequestBody CardNumberRequest cardNumberRequest
     ){
         return ResponseEntity.status(HttpStatus.OK).body(cardService.block(cardNumberRequest));
     }
@@ -82,7 +83,7 @@ public class CardController implements CardApi {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/create")
     public ResponseEntity<CardMaskedResponse> createCard(
-            @RequestBody CardCreateRequest cardRequest
+           @Valid @RequestBody CardCreateRequest cardRequest
     ){
         return ResponseEntity.status(HttpStatus.CREATED).body(cardService.adminCreate(cardRequest));
     }

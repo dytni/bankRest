@@ -2,7 +2,6 @@ package com.example.bankcards.service;
 
 import com.example.bankcards.dto.auth.request.SignInRequest;
 import com.example.bankcards.dto.auth.response.JwtResponse;
-import com.example.bankcards.dto.auth.request.SignUpRequest;
 import com.example.bankcards.dto.auth.request.RefreshTokenRequest;
 import com.example.bankcards.exception.RefreshTokenExpiredException;
 import com.example.bankcards.security.JwtCore;

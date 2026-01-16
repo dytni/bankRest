@@ -29,7 +29,7 @@ public class UserController implements UserApi {
 
     @PreAuthorize("hasRole('USER')")
     @PatchMapping("/profile")
-    public ResponseEntity<UserResponse> updateCurrentUser(@Valid @RequestBody SignUpRequest updateRequest) {
+    public ResponseEntity<UserResponse> updateCurrentUser(@RequestBody SignUpRequest updateRequest) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.updateUser(updateRequest));
     }
 
