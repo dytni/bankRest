@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: dytni
+      contexts: test, dev
+      changes:
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: admin@example.com
+              - column:
+                  name: password
+                  value: $2a$10$oI.k5gFskc1NznMj4DOk.e0VEONwK5D2vDldivBuglBRtOKDV.jiO
+              - column: { name: last_name, value: "Админов" }
+              - column: { name: first_name, value: "Админ" }
+              - column: { name: second_name, value: "Админович" }
+
+        - insert:
+            tableName: users
+            columns:
+              - column:
+                  name: username
+                  value: user@example.com
+              - column:
+                  name: password
+                  value: $2a$10$oI.k5gFskc1NznMj4DOk.e0VEONwK5D2vDldivBuglBRtOKDV.jiO
+              - column: { name: last_name, value: "Юзеров" }
+              - column: { name: first_name, value: "Юзер" }
+              - column: { name: second_name, value: "Юзерович" }
+
+        - insert:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: (SELECT id FROM users WHERE username = 'admin@example.com')
+              - column:
+                  name: role
+                  value: ADMIN
+        - insert:
+            tableName: user_roles
+            columns:
+              - column:
+                  name: user_id
+                  valueComputed: (SELECT id FROM users WHERE username = 'user@example.com')
+              - column:
+                  name: role
+                  value: USER
