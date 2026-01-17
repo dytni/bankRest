@@ -3,7 +3,7 @@
 testing:
   app:
     secret: ${JWT_SECRET}
-    expirationMs: 9000000
+    expirationMs: 900000
     refreshExpirationMs: 604800000
   security:
     encryption-key: ${ENCRYPTION_KEY}

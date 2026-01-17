@@ -87,63 +87,6 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/CardMaskedResponse"
-  "/cards/block_request":
-    post:
-      tags:
-        - Cards
-      summary: Request card block
-      description: Allows user to request a block for their own card.
-      operationId: requestToBlockCard
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": "#/components/schemas/CardNumberRequest"
-        required: true
-      responses:
-        '201':
-          description: Block request successfully created
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/CardMaskedResponse"
-        '404':
-          description: Card not found or doesn't belong to the user
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/CardMaskedResponse"
-    patch:
-      tags:
-        - Cards
-      summary: 'Admin: Block card'
-      description: Admin confirms a card block request.
-      operationId: blockCard
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": "#/components/schemas/CardNumberRequest"
-        required: true
-      responses:
-        '200':
-          description: Card successfully blocked by admin
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/CardMaskedResponse"
-        '403':
-          description: 'Access denied: Admin role required'
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/CardMaskedResponse"
-        '404':
-          description: Block request not found
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/CardMaskedResponse"
   "/auth/signup":
     post:
       tags:
@@ -380,75 +323,64 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/TransferResponse"
-  "/cards/get":
-    get:
+  "/cards/block_request":
+    patch:
       tags:
         - Cards
-      summary: 'Admin: Get all cards'
-      description: Returns a paginated list of all cards in the system (full data).
-      operationId: getAllCards
-      parameters:
-        - name: pageable
-          in: query
-          required: true
-          schema:
-            "$ref": "#/components/schemas/Pageable"
+      summary: Request card block
+      description: Allows user to request a block for their own card.
+      operationId: requestToBlockCard
       requestBody:
         content:
           application/json:
             schema:
-              "$ref": "#/components/schemas/CardsFilter"
+              "$ref": "#/components/schemas/CardNumberRequest"
+        required: true
       responses:
-        '200':
-          description: Full list of cards retrieved successfully
+        '201':
+          description: Block request successfully created
           content:
             "*/*":
               schema:
-                "$ref": "#/components/schemas/PagedModel"
+                "$ref": "#/components/schemas/CardMaskedResponse"
+        '404':
+          description: Card not found or doesn't belong to the user
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/CardMaskedResponse"
+  "/cards/block":
+    patch:
+      tags:
+        - Cards
+      summary: 'Admin: Block card'
+      description: Admin confirms a card block request.
+      operationId: blockCard
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CardNumberRequest"
+        required: true
+      responses:
+        '200':
+          description: Card successfully blocked by admin
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/CardMaskedResponse"
         '403':
           description: 'Access denied: Admin role required'
           content:
             "*/*":
               schema:
-                "$ref": "#/components/schemas/PagedModel"
-    patch:
-      tags:
-        - Cards
-      summary: Get full card details
-      description: Returns full card details after PIN verification. Handles failed
-        attempts.
-      operationId: getCardDetails
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": "#/components/schemas/CardPasswordRequest"
-        required: true
-      responses:
-        '200':
-          description: PIN verified, full details returned
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/CardResponse"
-        '401':
-          description: Incorrect PIN code provided
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/CardResponse"
+                "$ref": "#/components/schemas/CardMaskedResponse"
         '404':
-          description: Card not found
+          description: Block request not found
           content:
             "*/*":
               schema:
-                "$ref": "#/components/schemas/CardResponse"
-        '409':
-          description: Card is blocked or too many failed attempts
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/CardResponse"
+                "$ref": "#/components/schemas/CardMaskedResponse"
   "/cards/activate":
     patch:
       tags:
@@ -481,7 +413,7 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/CardMaskedResponse"
-  "/user/getAll":
+  "/user/get_all":
     get:
       tags:
         - Users
@@ -540,7 +472,7 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/UserResponse"
-  "/cards/myCards":
+  "/cards/my_cards":
     get:
       tags:
         - Cards
@@ -568,6 +500,76 @@ paths:
                 "$ref": "#/components/schemas/PagedModel"
         '401':
           description: Full authentication is required to access this resource
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PagedModel"
+  "/cards/get_details":
+    get:
+      tags:
+        - Cards
+      summary: Get full card details
+      description: Returns full card details after PIN verification. Handles failed
+        attempts.
+      operationId: getCardDetails
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CardPasswordRequest"
+        required: true
+      responses:
+        '200':
+          description: PIN verified, full details returned
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/CardResponse"
+        '401':
+          description: Incorrect PIN code provided
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/CardResponse"
+        '404':
+          description: Card not found
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/CardResponse"
+        '409':
+          description: Card is blocked or too many failed attempts
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/CardResponse"
+  "/cards/get_all":
+    get:
+      tags:
+        - Cards
+      summary: 'Admin: Get all cards'
+      description: Returns a paginated list of all cards in the system (full data).
+      operationId: getAllCards
+      parameters:
+        - name: pageable
+          in: query
+          required: true
+          schema:
+            "$ref": "#/components/schemas/Pageable"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/CardsFilter"
+      responses:
+        '200':
+          description: Full list of cards retrieved successfully
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/PagedModel"
+        '403':
+          description: 'Access denied: Admin role required'
           content:
             "*/*":
               schema:
@@ -706,16 +708,6 @@ components:
         expiryDate:
           type: string
           format: date
-    CardNumberRequest:
-      type: object
-      properties:
-        number:
-          type: string
-          maxLength: 16
-          minLength: 16
-          pattern: "\\d+"
-      required:
-        - number
     SignUpRequest:
       type: object
       properties:
@@ -800,7 +792,7 @@ components:
       properties:
         message:
           type: string
-    CardPasswordRequest:
+    CardNumberRequest:
       type: object
       properties:
         number:
@@ -808,28 +800,8 @@ components:
           maxLength: 16
           minLength: 16
           pattern: "\\d+"
-        pincode:
-          type: string
-          maxLength: 4
-          minLength: 4
-          pattern: "\\d+"
       required:
         - number
-        - pincode
-    CardResponse:
-      type: object
-      properties:
-        number:
-          type: string
-        status:
-          type: string
-        ownerName:
-          type: string
-        balance:
-          type: number
-        expiryDate:
-          type: string
-          format: date
     Pageable:
       type: object
       properties:
@@ -874,13 +846,39 @@ components:
       properties:
         status:
           type: string
-        number:
-          type: string
         date:
           type: string
           format: date
+    CardPasswordRequest:
+      type: object
+      properties:
+        lastFourDigitsOfNumber:
+          type: string
+          maxLength: 4
+          minLength: 4
+          pattern: "\\d+"
+        pincode:
+          type: string
+          maxLength: 4
+          minLength: 4
+          pattern: "\\d+"
+      required:
+        - lastFourDigitsOfNumber
+        - pincode
+    CardResponse:
+      type: object
+      properties:
+        number:
+          type: string
+        status:
+          type: string
+        ownerName:
+          type: string
         balance:
           type: number
+        expiryDate:
+          type: string
+          format: date
   securitySchemes:
     JWT:
       type: http

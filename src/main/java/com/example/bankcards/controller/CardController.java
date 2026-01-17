@@ -32,7 +32,7 @@ public class CardController implements CardApi {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/myCards")
+    @GetMapping("/my_cards")
     public ResponseEntity<Page<CardMaskedResponse>> getUserCards(
             @RequestBody(required = false) CardsFilter filter,
             @PageableDefault(sort = "number", direction = Sort.Direction.DESC) Pageable pageable
@@ -41,7 +41,7 @@ public class CardController implements CardApi {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @PatchMapping("/get")
+    @GetMapping("/get_details")
     public ResponseEntity<CardResponse> getCardDetails(
             @Valid @RequestBody CardPasswordRequest cardPasswordRequest
     ){
@@ -98,7 +98,7 @@ public class CardController implements CardApi {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/get")
+    @GetMapping("/get_all")
     public ResponseEntity<Page<CardResponse>> getAllCards(
             @RequestBody(required = false) CardsFilter filter,
             @PageableDefault(sort = "number", direction = Sort.Direction.DESC) Pageable pageable

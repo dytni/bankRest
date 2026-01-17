@@ -28,6 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class CardService {
@@ -144,8 +145,17 @@ public class CardService {
 
     @Transactional
     public CardResponse getCard(CardPasswordRequest request) {
-        Card card = cardRepository.findByNumberForUpdate(request.number())
-                .orElseThrow(() -> new ResourceNotFoundException("Card not found"));
+        User currentUser = SecurityUtils.getCurrentUser();
+        List<Card> cards = cardRepository.findByOwner(currentUser);
+        Card card = cards.stream()
+                .filter(cardTemp -> {
+                    String fullNumber = cardTemp.getNumber();
+                    return fullNumber != null && fullNumber.endsWith(request.lastFourDigitsOfNumber());
+                }).findFirst()
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Card with last 4 digits " + request.lastFourDigitsOfNumber() + " not found"
+                ));
+
 
         if ("BLOCKED".equals(card.getStatus())) {
             throw new CardsConflictException("Card is blocked");

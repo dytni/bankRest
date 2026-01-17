@@ -48,3 +48,29 @@ databaseChangeLog:
               - column:
                   name: role
                   value: USER
+
+        - insert:
+            tableName: cards
+            columns:
+              - column: { name: number, value: "0DVInHrW76Efn6ah2l3cRXKLdaRquFib5NnbCR749ok=" }
+              - column: { name: pincode, value: "$2a$10$h7GTqxJ2sVALw3LhJNRKqezVpPaVK5SyicrfBfzeJQR98pMvG.0Te" }
+              - column: { name: failed_attempts, value: "0" }
+              - column: { name: balance, value: "5000.50" }
+              - column: { name: expiry_date, value: "2027-06-01" }
+              - column: { name: status, value: "ACTIVE" }
+              - column:
+                  name: owner_id
+                  valueComputed: (SELECT id FROM users WHERE username = 'user@example.com')
+
+        - insert:
+            tableName: cards
+            columns:
+              - column: { name: number, value: "xIsHR9XDBDAfrpE7Kxpxu3KLdaRquFib5NnbCR749ok=" }
+              - column: { name: pincode, value: "$2a$10$.gB0eERfK0TmKRAZPRv6lOlMQPwZwoZce/x70lw0lKCKM/.NfMWsK" }
+              - column: { name: failed_attempts, value: "0" }
+              - column: { name: balance, value: "5000.00" }
+              - column: { name: expiry_date, value: "2027-01-01" }
+              - column: { name: status, value: "ACTIVE" }
+              - column:
+                  name: owner_id
+                  valueComputed: (SELECT id FROM users WHERE username = 'user@example.com')

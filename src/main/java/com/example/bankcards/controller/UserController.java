@@ -68,7 +68,7 @@ public class UserController implements UserApi {
     }
 
     @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/getAll")
+    @GetMapping("/get_all")
     public ResponseEntity<Page<UserResponse>> getAll(
             @PageableDefault(sort = "lastName", direction = Sort.Direction.ASC) Pageable pageable
     ){
