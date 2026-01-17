@@ -87,7 +87,7 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/CardMaskedResponse"
-  "/cards/block":
+  "/cards/block_request":
     post:
       tags:
         - Cards
