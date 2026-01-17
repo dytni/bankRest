@@ -2,18 +2,18 @@
 # application.yml — главный конфигурационный файл Spring Boot.
 testing:
   app:
-    secret: 7dRVDush0yCgDxd90YzNkMnvvN0KTaa/k9cnkwUWrmU=
+    secret: ${JWT_SECRET}
     expirationMs: 9000000
     refreshExpirationMs: 604800000
   security:
-    encryption-key: my0superpuper1secretkey2
+    encryption-key: ${ENCRYPTION_KEY}
 
 
 spring:
   datasource:
-    username: dytni
-    password: 1331
-    url: jdbc:postgresql://localhost:5432/bank_rest_bd
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/${DB_NAME}
 
   liquibase:
     change-log: classpath:/db.changelog-master.yaml
