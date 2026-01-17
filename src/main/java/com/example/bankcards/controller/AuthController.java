@@ -1,6 +1,5 @@
 package com.example.bankcards.controller;
 
-import com.example.bankcards.config.openapi.AuthApi;
 import com.example.bankcards.dto.auth.request.SignInRequest;
 import com.example.bankcards.dto.auth.response.JwtResponse;
 import com.example.bankcards.dto.auth.request.SignUpRequest;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-public class AuthController implements AuthApi {
+public class AuthController {
 
     private final AuthService authService;
     private final UserService userService;

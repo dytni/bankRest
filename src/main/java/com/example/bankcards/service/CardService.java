@@ -143,7 +143,7 @@ public class CardService {
         cardRepository.deleteById(id);
     }
 
-    @Transactional
+    @Transactional(noRollbackFor = CardsConflictException.class)
     public CardResponse getCard(CardPasswordRequest request) {
         User currentUser = SecurityUtils.getCurrentUser();
         List<Card> cards = cardRepository.findByOwner(currentUser);
@@ -167,11 +167,12 @@ public class CardService {
 
             if (attempts >= 3) {
                 card.setStatus("BLOCKED");
-                cardRepository.save(card);
-                throw new CardsConflictException("Too many attempts. Card has been blocked.");
             }
 
             cardRepository.save(card);
+            if (attempts >= 3) {
+                throw new CardsConflictException("Too many attempts. Card has been blocked.");
+            }
             throw new CardsConflictException("Invalid pincode. Attempts remaining: " + (3 - attempts));
         }
 

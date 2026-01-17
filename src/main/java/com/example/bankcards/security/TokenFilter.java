@@ -6,23 +6,21 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
 public class TokenFilter extends OncePerRequestFilter {
 
     private final JwtCore jwtCore;
-    private final UserDetailsServiceImpl userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    @Autowired
-    public TokenFilter(JwtCore jwtCore, UserDetailsServiceImpl userDetailsService) {
+    public TokenFilter(JwtCore jwtCore, UserDetailsService userDetailsService) {
         this.jwtCore = jwtCore;
         this.userDetailsService = userDetailsService;
     }
@@ -36,7 +34,7 @@ public class TokenFilter extends OncePerRequestFilter {
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain) throws ServletException, IOException {
         String Jwt = null;
         String username;
         UserDetails userDetails;

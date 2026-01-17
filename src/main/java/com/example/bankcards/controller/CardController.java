@@ -1,6 +1,5 @@
 package com.example.bankcards.controller;
 
-import com.example.bankcards.config.openapi.CardApi;
 import com.example.bankcards.dto.card.request.CardCreateRequest;
 import com.example.bankcards.dto.card.request.CardPasswordRequest;
 import com.example.bankcards.dto.card.request.CardNumberRequest;
@@ -23,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/cards")
-public class CardController implements CardApi {
+public class CardController {
 
     private final CardService cardService;
     @Autowired

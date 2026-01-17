@@ -1,6 +1,5 @@
 package com.example.bankcards.controller;
 
-import com.example.bankcards.config.openapi.UserApi;
 import com.example.bankcards.dto.auth.request.SignUpRequest;
 import com.example.bankcards.dto.user.request.UserCreateRequest;
 import com.example.bankcards.dto.user.response.UserResponse;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/user")
-public class UserController implements UserApi {
+public class UserController {
 
     private final UserService userService;
 
