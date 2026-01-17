@@ -5,6 +5,9 @@ testing:
     secret: 7dRVDush0yCgDxd90YzNkMnvvN0KTaa/k9cnkwUWrmU=
     expirationMs: 9000000
     refreshExpirationMs: 604800000
+  security:
+    encryption-key: my0superpuper1secretkey2
+
 
 spring:
   datasource:

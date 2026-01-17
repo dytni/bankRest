@@ -49,7 +49,7 @@ public class CardController implements CardApi {
     }
 
     @PreAuthorize("hasRole('USER')")
-    @PatchMapping("/block")
+    @PatchMapping("/block_request")
     public ResponseEntity<CardMaskedResponse> requestToBlockCard(
             @Valid @RequestBody CardNumberRequest cardNumberRequest
     ) {

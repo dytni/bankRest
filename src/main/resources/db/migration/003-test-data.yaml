@@ -13,9 +13,9 @@ databaseChangeLog:
               - column:
                   name: password
                   value: $2a$10$oI.k5gFskc1NznMj4DOk.e0VEONwK5D2vDldivBuglBRtOKDV.jiO
-              - column: { name: last_name, value: "Админов" }
-              - column: { name: first_name, value: "Админ" }
-              - column: { name: second_name, value: "Админович" }
+              - column: { name: last_name, value: "qMxb2w70dY1vZYRhQGz0Og==" }
+              - column: { name: first_name, value: "1Vq6YyIWdV7LqxsrnmB1sA==" }
+              - column: { name: second_name, value: "2HLkm78e9Ien4abghBt60R6O2ekBWaAA9UMT2oDNDH8=" }
 
         - insert:
             tableName: users
@@ -26,9 +26,9 @@ databaseChangeLog:
               - column:
                   name: password
                   value: $2a$10$oI.k5gFskc1NznMj4DOk.e0VEONwK5D2vDldivBuglBRtOKDV.jiO
-              - column: { name: last_name, value: "Юзеров" }
-              - column: { name: first_name, value: "Юзер" }
-              - column: { name: second_name, value: "Юзерович" }
+              - column: { name: last_name, value: "vs5UKwjckwwJ0A/H3aDEwg==" }
+              - column: { name: first_name, value: "Ze7Qg+R2WAuPP6NiYvSO/g==" }
+              - column: { name: second_name, value: "gBUK/qwLEGrN10kBC5lzBHKLdaRquFib5NnbCR749ok=" }
 
         - insert:
             tableName: user_roles
